@@ -736,8 +736,8 @@ CudaDeviceFunction void updateMyGlobals(real_t pf){
 	AddToTotalDensity( rho ); // Add globals of post-stream, pre-collide macroscopic globals.
 	AddToKineticEnergy( rho * u2mag );
 	AddToF_bodyX(GravitationX);
-        AddToF_bodyY(GravitationY);
-        AddToF_bodyZ(rho);
+    AddToF_bodyY(GravitationY);
+    AddToF_bodyZ(GravitationZ);
 
 	if ( (pf) < 0.5 ) 
 	{
