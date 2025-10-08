@@ -643,6 +643,17 @@ CudaDeviceFunction void CollisionMRT()
 		F_total[1] = F_surf[1] + F_pressure[1] + F_body[1] + F_mu[1];
 		F_total[2] = F_surf[2] + F_pressure[2] + F_body[2] + F_mu[2];
 
+		%%%%%%%%%%%%%% for visualizing the force in the paraview %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		    AddToF_pressureX(F_pressure[0]);                             
+			AddToF_pressureY(F_pressure[1]);
+			AddToF_pressureZ(F_pressure[2]);
+			AddToF_surfX(F_surf[0]);
+			AddToF_surfY(F_surf[1]);
+			AddToF_surfZ(F_surf[2]);
+			AddToF_muX(F_mu[0]);
+		 	AddToF_muY(F_mu[1]);
+		    AddToF_muZ(F_mu[2]);	
+
 	<?R 	C( u, m0[2:4] + 0.5 * F_total * rho.inv) ?>
 	} while (j<force_fixed_iterator);
 	// PHASE FIELD POPULATION UPDATE:
@@ -724,6 +735,9 @@ CudaDeviceFunction void updateMyGlobals(real_t pf){
 	real_t u2mag = (U*U+V*V+W*W);
 	AddToTotalDensity( rho ); // Add globals of post-stream, pre-collide macroscopic globals.
 	AddToKineticEnergy( rho * u2mag );
+	AddToF_bodyX(GravitationX);
+        AddToF_bodyY(GravitationY);
+        AddToF_bodyZ(rho);
 
 	if ( (pf) < 0.5 ) 
 	{
